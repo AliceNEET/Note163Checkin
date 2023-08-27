@@ -3,6 +3,9 @@ name: Run
 on:
   workflow_dispatch:
   repository_dispatch:
+  schedule:
+  # 每天国际时间 0:0 运行一次, 中国时间 8:00
+    - cron: '0 0 * * *'
 
 jobs:
   build:
