@@ -9,10 +9,8 @@ on:
 
 jobs:
   build:
-
     if: github.actor == github.repository_owner
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@main
     - name: Run
@@ -21,3 +19,15 @@ jobs:
         run: dotnet run
       env: 
         CONF: ${{ secrets.CONF }}
+  del_runs:
+      runs-on: ubuntu-latest
+      permissions:
+        actions: write
+      steps:
+        - name: Delete workflow runs
+          uses: Mattraks/delete-workflow-runs@v2
+          with:
+            token: ${{ github.token }}
+            repository: ${{ github.repository }}
+            retain_days: 1
+            keep_minimum_runs: 6
